@@ -1,0 +1,647 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="Model.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Book">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Pickup_Location" Type="nvarchar(max)" />
+          <Property Name="Pickup_Address" Type="nvarchar(max)" />
+          <Property Name="Pickup_Suburb" Type="nvarchar(max)" />
+          <Property Name="Flight_Number" Type="nvarchar" MaxLength="50" />
+          <Property Name="Flight_Date" Type="date" />
+          <Property Name="Flight_Time" Type="time" Precision="7" />
+          <Property Name="Dropoff_Location" Type="nvarchar(max)" />
+          <Property Name="Dropoff_Address" Type="nvarchar(max)" />
+          <Property Name="Dropoff_Suburb" Type="nvarchar(max)" />
+          <Property Name="Return_Flight_Number" Type="nvarchar" MaxLength="50" />
+          <Property Name="Return_Flight_Date" Type="date" />
+          <Property Name="Return_Flight_Time" Type="time" Precision="7" />
+          <Property Name="One_way" Type="bit" />
+          <Property Name="Round_trip" Type="bit" />
+          <Property Name="Ref" Type="nvarchar(max)" />
+          <Property Name="Ref_related" Type="nvarchar(max)" />
+          <Property Name="Status" Type="nvarchar" MaxLength="50" />
+          <Property Name="Vehicle_Id" Type="int" />
+          <Property Name="Adult_Number" Type="int" />
+          <Property Name="Child_Number" Type="int" />
+          <Property Name="Entry_Datetime" Type="datetime" />
+          <Property Name="Child_Restraints" Type="nvarchar(max)" />
+          <Property Name="Trailer" Type="bit" />
+          <Property Name="Champagne" Type="bit" />
+          <Property Name="Id_Forword" Type="int" />
+          <Property Name="Id_Related" Type="int" />
+          <Property Name="City_Id" Type="int" />
+          <Property Name="Special_Request" Type="nvarchar(max)" />
+          <Property Name="ContactName" Type="nvarchar" MaxLength="50" />
+          <Property Name="UserName" Type="nvarchar(max)" />
+          <Property Name="Phone" Type="nvarchar" MaxLength="50" />
+          <Property Name="Phone2" Type="nvarchar" MaxLength="50" />
+          <Property Name="Paypal_txn_id" Type="nvarchar" MaxLength="50" />
+          <Property Name="Paypal_residence_country" Type="nvarchar" MaxLength="50" />
+          <Property Name="Direction" Type="nvarchar(max)" />
+          <Property Name="Forword_Pickup_Time" Type="time" Precision="7" />
+          <Property Name="Forword_Pickup_Date" Type="date" />
+          <Property Name="Return_Pickup_Time" Type="time" Precision="7" />
+          <Property Name="Return_Pickup_Date" Type="date" />
+          <Property Name="Cost" Type="money" />
+          <Property Name="Email" Type="nvarchar(max)" />
+        </EntityType>
+        <EntityType Name="City">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="100" />
+        </EntityType>
+        <EntityType Name="Location">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="200" />
+          <Property Name="CityId" Type="int" />
+        </EntityType>
+        <EntityType Name="Price">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Adult_Single_Ticket" Type="money" />
+          <Property Name="Adult_Return_Ticket" Type="money" />
+          <Property Name="Child_Single_Ticket" Type="money" />
+          <Property Name="Child_Return_Ticket" Type="money" />
+          <Property Name="City_Id" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Ref_Generate">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Book_Id" Type="int" />
+          <Property Name="Entry_Datetime" Type="datetime" />
+        </EntityType>
+        <EntityType Name="ShuttleTimeTable">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Time" Type="time" Precision="7" />
+          <Property Name="TimeTypeId" Type="int" />
+        </EntityType>
+        <EntityType Name="Suburb">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="100" />
+          <Property Name="CityId" Type="int" />
+        </EntityType>
+        <EntityType Name="TimeType">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="50" />
+          <Property Name="LocationId" Type="int" />
+        </EntityType>
+        <EntityType Name="Vehicle">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar(max)" />
+        </EntityType>
+        <Association Name="FK_Book_City">
+          <End Role="City" Type="Self.City" Multiplicity="0..1" />
+          <End Role="Book" Type="Self.Book" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="City">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Book">
+              <PropertyRef Name="City_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Book_Vehicle">
+          <End Role="Vehicle" Type="Self.Vehicle" Multiplicity="0..1" />
+          <End Role="Book" Type="Self.Book" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Vehicle">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Book">
+              <PropertyRef Name="Vehicle_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Location_City">
+          <End Role="City" Type="Self.City" Multiplicity="0..1" />
+          <End Role="Location" Type="Self.Location" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="City">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Location">
+              <PropertyRef Name="CityId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Price_City">
+          <End Role="City" Type="Self.City" Multiplicity="1" />
+          <End Role="Price" Type="Self.Price" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="City">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Price">
+              <PropertyRef Name="City_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ShuttleTimeTable_TimeType">
+          <End Role="TimeType" Type="Self.TimeType" Multiplicity="0..1" />
+          <End Role="ShuttleTimeTable" Type="Self.ShuttleTimeTable" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TimeType">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="ShuttleTimeTable">
+              <PropertyRef Name="TimeTypeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_Suburb">
+          <End Role="City" Type="Self.City" Multiplicity="0..1" />
+          <End Role="Suburb" Type="Self.Suburb" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="City">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Suburb">
+              <PropertyRef Name="CityId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TimeType_Location">
+          <End Role="Location" Type="Self.Location" Multiplicity="0..1" />
+          <End Role="TimeType" Type="Self.TimeType" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Location">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="TimeType">
+              <PropertyRef Name="LocationId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="ModelStoreContainer">
+          <EntitySet Name="Book" EntityType="Self.Book" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="City" EntityType="Self.City" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Location" EntityType="Self.Location" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Price" EntityType="Self.Price" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Ref_Generate" EntityType="Self.Ref_Generate" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ShuttleTimeTable" EntityType="Self.ShuttleTimeTable" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Suburb" EntityType="Self.Suburb" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TimeType" EntityType="Self.TimeType" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Vehicle" EntityType="Self.Vehicle" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_Book_City" Association="Self.FK_Book_City">
+            <End Role="City" EntitySet="City" />
+            <End Role="Book" EntitySet="Book" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Book_Vehicle" Association="Self.FK_Book_Vehicle">
+            <End Role="Vehicle" EntitySet="Vehicle" />
+            <End Role="Book" EntitySet="Book" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Location_City" Association="Self.FK_Location_City">
+            <End Role="City" EntitySet="City" />
+            <End Role="Location" EntitySet="Location" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Price_City" Association="Self.FK_Price_City">
+            <End Role="City" EntitySet="City" />
+            <End Role="Price" EntitySet="Price" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ShuttleTimeTable_TimeType" Association="Self.FK_ShuttleTimeTable_TimeType">
+            <End Role="TimeType" EntitySet="TimeType" />
+            <End Role="ShuttleTimeTable" EntitySet="ShuttleTimeTable" />
+          </AssociationSet>
+          <AssociationSet Name="fk_Suburb" Association="Self.fk_Suburb">
+            <End Role="City" EntitySet="City" />
+            <End Role="Suburb" EntitySet="Suburb" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TimeType_Location" Association="Self.FK_TimeType_Location">
+            <End Role="Location" EntitySet="Location" />
+            <End Role="TimeType" EntitySet="TimeType" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="Model" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Book">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Pickup_Location" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Pickup_Address" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Pickup_Suburb" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Flight_Number" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Flight_Date" Type="DateTime" Precision="0" />
+          <Property Name="Flight_Time" Type="Time" Precision="7" />
+          <Property Name="Dropoff_Location" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Dropoff_Address" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Dropoff_Suburb" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Return_Flight_Number" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Return_Flight_Date" Type="DateTime" Precision="0" />
+          <Property Name="Return_Flight_Time" Type="Time" Precision="7" />
+          <Property Name="One_way" Type="Boolean" />
+          <Property Name="Round_trip" Type="Boolean" />
+          <Property Name="Ref" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Ref_related" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Status" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Vehicle_Id" Type="Int32" />
+          <Property Name="Adult_Number" Type="Int32" />
+          <Property Name="Child_Number" Type="Int32" />
+          <Property Name="Entry_Datetime" Type="DateTime" Precision="3" />
+          <Property Name="Child_Restraints" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Trailer" Type="Boolean" />
+          <Property Name="Champagne" Type="Boolean" />
+          <Property Name="Id_Forword" Type="Int32" />
+          <Property Name="Id_Related" Type="Int32" />
+          <Property Name="City_Id" Type="Int32" />
+          <Property Name="Special_Request" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="ContactName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="UserName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Phone" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Phone2" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Paypal_txn_id" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Paypal_residence_country" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Direction" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Forword_Pickup_Time" Type="Time" Precision="7" />
+          <Property Name="Forword_Pickup_Date" Type="DateTime" Precision="0" />
+          <Property Name="Return_Pickup_Time" Type="Time" Precision="7" />
+          <Property Name="Return_Pickup_Date" Type="DateTime" Precision="0" />
+          <Property Name="Cost" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="Email" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="City" Relationship="Self.FK_Book_City" FromRole="Book" ToRole="City" />
+          <NavigationProperty Name="Vehicle" Relationship="Self.FK_Book_Vehicle" FromRole="Book" ToRole="Vehicle" />
+        </EntityType>
+        <EntityType Name="City">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Books" Relationship="Self.FK_Book_City" FromRole="City" ToRole="Book" />
+          <NavigationProperty Name="Locations" Relationship="Self.FK_Location_City" FromRole="City" ToRole="Location" />
+          <NavigationProperty Name="Prices" Relationship="Self.FK_Price_City" FromRole="City" ToRole="Price" />
+          <NavigationProperty Name="Suburbs" Relationship="Self.fk_Suburb" FromRole="City" ToRole="Suburb" />
+        </EntityType>
+        <EntityType Name="Location">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="CityId" Type="Int32" />
+          <NavigationProperty Name="City" Relationship="Self.FK_Location_City" FromRole="Location" ToRole="City" />
+          <NavigationProperty Name="TimeTypes" Relationship="Self.FK_TimeType_Location" FromRole="Location" ToRole="TimeType" />
+        </EntityType>
+        <EntityType Name="Price">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Adult_Single_Ticket" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="Adult_Return_Ticket" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="Child_Single_Ticket" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="Child_Return_Ticket" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="City_Id" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="City" Relationship="Self.FK_Price_City" FromRole="Price" ToRole="City" />
+        </EntityType>
+        <EntityType Name="Ref_Generate">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Book_Id" Type="Int32" />
+          <Property Name="Entry_Datetime" Type="DateTime" Precision="3" />
+        </EntityType>
+        <EntityType Name="ShuttleTimeTable">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Time" Type="Time" Precision="7" />
+          <Property Name="TimeTypeId" Type="Int32" />
+          <NavigationProperty Name="TimeType" Relationship="Self.FK_ShuttleTimeTable_TimeType" FromRole="ShuttleTimeTable" ToRole="TimeType" />
+        </EntityType>
+        <EntityType Name="Suburb">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="CityId" Type="Int32" />
+          <NavigationProperty Name="City" Relationship="Self.fk_Suburb" FromRole="Suburb" ToRole="City" />
+        </EntityType>
+        <EntityType Name="TimeType">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="LocationId" Type="Int32" />
+          <NavigationProperty Name="Location" Relationship="Self.FK_TimeType_Location" FromRole="TimeType" ToRole="Location" />
+          <NavigationProperty Name="ShuttleTimeTables" Relationship="Self.FK_ShuttleTimeTable_TimeType" FromRole="TimeType" ToRole="ShuttleTimeTable" />
+        </EntityType>
+        <EntityType Name="Vehicle">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Books" Relationship="Self.FK_Book_Vehicle" FromRole="Vehicle" ToRole="Book" />
+        </EntityType>
+        <Association Name="FK_Book_City">
+          <End Role="City" Type="Self.City" Multiplicity="0..1" />
+          <End Role="Book" Type="Self.Book" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="City">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Book">
+              <PropertyRef Name="City_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Book_Vehicle">
+          <End Role="Vehicle" Type="Self.Vehicle" Multiplicity="0..1" />
+          <End Role="Book" Type="Self.Book" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Vehicle">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Book">
+              <PropertyRef Name="Vehicle_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Location_City">
+          <End Role="City" Type="Self.City" Multiplicity="0..1" />
+          <End Role="Location" Type="Self.Location" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="City">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Location">
+              <PropertyRef Name="CityId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Price_City">
+          <End Role="City" Type="Self.City" Multiplicity="1" />
+          <End Role="Price" Type="Self.Price" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="City">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Price">
+              <PropertyRef Name="City_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_Suburb">
+          <End Role="City" Type="Self.City" Multiplicity="0..1" />
+          <End Role="Suburb" Type="Self.Suburb" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="City">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Suburb">
+              <PropertyRef Name="CityId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TimeType_Location">
+          <End Role="Location" Type="Self.Location" Multiplicity="0..1" />
+          <End Role="TimeType" Type="Self.TimeType" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Location">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="TimeType">
+              <PropertyRef Name="LocationId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ShuttleTimeTable_TimeType">
+          <End Role="TimeType" Type="Self.TimeType" Multiplicity="0..1" />
+          <End Role="ShuttleTimeTable" Type="Self.ShuttleTimeTable" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TimeType">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="ShuttleTimeTable">
+              <PropertyRef Name="TimeTypeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="RoyaleContext" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Books" EntityType="Self.Book" />
+          <EntitySet Name="Cities" EntityType="Self.City" />
+          <EntitySet Name="Locations" EntityType="Self.Location" />
+          <EntitySet Name="Prices" EntityType="Self.Price" />
+          <EntitySet Name="Ref_Generate" EntityType="Self.Ref_Generate" />
+          <EntitySet Name="ShuttleTimeTables" EntityType="Self.ShuttleTimeTable" />
+          <EntitySet Name="Suburbs" EntityType="Self.Suburb" />
+          <EntitySet Name="TimeTypes" EntityType="Self.TimeType" />
+          <EntitySet Name="Vehicles" EntityType="Self.Vehicle" />
+          <AssociationSet Name="FK_Book_City" Association="Self.FK_Book_City">
+            <End Role="City" EntitySet="Cities" />
+            <End Role="Book" EntitySet="Books" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Book_Vehicle" Association="Self.FK_Book_Vehicle">
+            <End Role="Vehicle" EntitySet="Vehicles" />
+            <End Role="Book" EntitySet="Books" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Location_City" Association="Self.FK_Location_City">
+            <End Role="City" EntitySet="Cities" />
+            <End Role="Location" EntitySet="Locations" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Price_City" Association="Self.FK_Price_City">
+            <End Role="City" EntitySet="Cities" />
+            <End Role="Price" EntitySet="Prices" />
+          </AssociationSet>
+          <AssociationSet Name="fk_Suburb" Association="Self.fk_Suburb">
+            <End Role="City" EntitySet="Cities" />
+            <End Role="Suburb" EntitySet="Suburbs" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TimeType_Location" Association="Self.FK_TimeType_Location">
+            <End Role="Location" EntitySet="Locations" />
+            <End Role="TimeType" EntitySet="TimeTypes" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ShuttleTimeTable_TimeType" Association="Self.FK_ShuttleTimeTable_TimeType">
+            <End Role="TimeType" EntitySet="TimeTypes" />
+            <End Role="ShuttleTimeTable" EntitySet="ShuttleTimeTables" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="ModelStoreContainer" CdmEntityContainer="RoyaleContext">
+          <EntitySetMapping Name="Books">
+            <EntityTypeMapping TypeName="Model.Book">
+              <MappingFragment StoreEntitySet="Book">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Pickup_Location" ColumnName="Pickup_Location" />
+                <ScalarProperty Name="Pickup_Address" ColumnName="Pickup_Address" />
+                <ScalarProperty Name="Pickup_Suburb" ColumnName="Pickup_Suburb" />
+                <ScalarProperty Name="Flight_Number" ColumnName="Flight_Number" />
+                <ScalarProperty Name="Flight_Date" ColumnName="Flight_Date" />
+                <ScalarProperty Name="Flight_Time" ColumnName="Flight_Time" />
+                <ScalarProperty Name="Dropoff_Location" ColumnName="Dropoff_Location" />
+                <ScalarProperty Name="Dropoff_Address" ColumnName="Dropoff_Address" />
+                <ScalarProperty Name="Dropoff_Suburb" ColumnName="Dropoff_Suburb" />
+                <ScalarProperty Name="Return_Flight_Number" ColumnName="Return_Flight_Number" />
+                <ScalarProperty Name="Return_Flight_Date" ColumnName="Return_Flight_Date" />
+                <ScalarProperty Name="Return_Flight_Time" ColumnName="Return_Flight_Time" />
+                <ScalarProperty Name="One_way" ColumnName="One_way" />
+                <ScalarProperty Name="Round_trip" ColumnName="Round_trip" />
+                <ScalarProperty Name="Ref" ColumnName="Ref" />
+                <ScalarProperty Name="Ref_related" ColumnName="Ref_related" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="Vehicle_Id" ColumnName="Vehicle_Id" />
+                <ScalarProperty Name="Adult_Number" ColumnName="Adult_Number" />
+                <ScalarProperty Name="Child_Number" ColumnName="Child_Number" />
+                <ScalarProperty Name="Entry_Datetime" ColumnName="Entry_Datetime" />
+                <ScalarProperty Name="Child_Restraints" ColumnName="Child_Restraints" />
+                <ScalarProperty Name="Trailer" ColumnName="Trailer" />
+                <ScalarProperty Name="Champagne" ColumnName="Champagne" />
+                <ScalarProperty Name="Id_Forword" ColumnName="Id_Forword" />
+                <ScalarProperty Name="Id_Related" ColumnName="Id_Related" />
+                <ScalarProperty Name="City_Id" ColumnName="City_Id" />
+                <ScalarProperty Name="Special_Request" ColumnName="Special_Request" />
+                <ScalarProperty Name="ContactName" ColumnName="ContactName" />
+                <ScalarProperty Name="UserName" ColumnName="UserName" />
+                <ScalarProperty Name="Phone" ColumnName="Phone" />
+                <ScalarProperty Name="Phone2" ColumnName="Phone2" />
+                <ScalarProperty Name="Paypal_txn_id" ColumnName="Paypal_txn_id" />
+                <ScalarProperty Name="Paypal_residence_country" ColumnName="Paypal_residence_country" />
+                <ScalarProperty Name="Direction" ColumnName="Direction" />
+                <ScalarProperty Name="Forword_Pickup_Time" ColumnName="Forword_Pickup_Time" />
+                <ScalarProperty Name="Forword_Pickup_Date" ColumnName="Forword_Pickup_Date" />
+                <ScalarProperty Name="Return_Pickup_Time" ColumnName="Return_Pickup_Time" />
+                <ScalarProperty Name="Return_Pickup_Date" ColumnName="Return_Pickup_Date" />
+                <ScalarProperty Name="Cost" ColumnName="Cost" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Cities">
+            <EntityTypeMapping TypeName="Model.City">
+              <MappingFragment StoreEntitySet="City">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Locations">
+            <EntityTypeMapping TypeName="Model.Location">
+              <MappingFragment StoreEntitySet="Location">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="CityId" ColumnName="CityId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Prices">
+            <EntityTypeMapping TypeName="Model.Price">
+              <MappingFragment StoreEntitySet="Price">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Adult_Single_Ticket" ColumnName="Adult_Single_Ticket" />
+                <ScalarProperty Name="Adult_Return_Ticket" ColumnName="Adult_Return_Ticket" />
+                <ScalarProperty Name="Child_Single_Ticket" ColumnName="Child_Single_Ticket" />
+                <ScalarProperty Name="Child_Return_Ticket" ColumnName="Child_Return_Ticket" />
+                <ScalarProperty Name="City_Id" ColumnName="City_Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Ref_Generate">
+            <EntityTypeMapping TypeName="Model.Ref_Generate">
+              <MappingFragment StoreEntitySet="Ref_Generate">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Book_Id" ColumnName="Book_Id" />
+                <ScalarProperty Name="Entry_Datetime" ColumnName="Entry_Datetime" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ShuttleTimeTables">
+            <EntityTypeMapping TypeName="Model.ShuttleTimeTable">
+              <MappingFragment StoreEntitySet="ShuttleTimeTable">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Time" ColumnName="Time" />
+                <ScalarProperty Name="TimeTypeId" ColumnName="TimeTypeId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Suburbs">
+            <EntityTypeMapping TypeName="Model.Suburb">
+              <MappingFragment StoreEntitySet="Suburb">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="CityId" ColumnName="CityId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TimeTypes">
+            <EntityTypeMapping TypeName="Model.TimeType">
+              <MappingFragment StoreEntitySet="TimeType">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="LocationId" ColumnName="LocationId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Vehicles">
+            <EntityTypeMapping TypeName="Model.Vehicle">
+              <MappingFragment StoreEntitySet="Vehicle">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

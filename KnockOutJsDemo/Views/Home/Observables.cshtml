@@ -1,0 +1,24 @@
+﻿@{
+    ViewBag.Title = "Contact";
+}
+
+<h3>@ViewBag.Message</h3>
+
+My product name is <span data-bind="text:productName"></span>,and it's contained in the category of <span data-bind="text:productCat"></span>.
+
+
+
+@section scripts{
+<script type="text/javascript">
+    var viewModel = {
+        productName: "widget",
+        productCat: "other"
+    };
+
+    ko.applyBindings(viewModel);
+
+</script>
+
+}
+
+

@@ -1,0 +1,126 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="ModelStoreContainer" CdmEntityContainer="RoyaleContext">
+    <EntitySetMapping Name="Books">
+      <EntityTypeMapping TypeName="Model.Book">
+        <MappingFragment StoreEntitySet="Book">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Pickup_Location" ColumnName="Pickup_Location" />
+          <ScalarProperty Name="Pickup_Address" ColumnName="Pickup_Address" />
+          <ScalarProperty Name="Pickup_Suburb" ColumnName="Pickup_Suburb" />
+          <ScalarProperty Name="Flight_Number" ColumnName="Flight_Number" />
+          <ScalarProperty Name="Flight_Date" ColumnName="Flight_Date" />
+          <ScalarProperty Name="Flight_Time" ColumnName="Flight_Time" />
+          <ScalarProperty Name="Dropoff_Location" ColumnName="Dropoff_Location" />
+          <ScalarProperty Name="Dropoff_Address" ColumnName="Dropoff_Address" />
+          <ScalarProperty Name="Dropoff_Suburb" ColumnName="Dropoff_Suburb" />
+          <ScalarProperty Name="Return_Flight_Number" ColumnName="Return_Flight_Number" />
+          <ScalarProperty Name="Return_Flight_Date" ColumnName="Return_Flight_Date" />
+          <ScalarProperty Name="Return_Flight_Time" ColumnName="Return_Flight_Time" />
+          <ScalarProperty Name="One_way" ColumnName="One_way" />
+          <ScalarProperty Name="Round_trip" ColumnName="Round_trip" />
+          <ScalarProperty Name="Ref" ColumnName="Ref" />
+          <ScalarProperty Name="Ref_related" ColumnName="Ref_related" />
+          <ScalarProperty Name="Status" ColumnName="Status" />
+          <ScalarProperty Name="Vehicle_Id" ColumnName="Vehicle_Id" />
+          <ScalarProperty Name="Adult_Number" ColumnName="Adult_Number" />
+          <ScalarProperty Name="Child_Number" ColumnName="Child_Number" />
+          <ScalarProperty Name="Entry_Datetime" ColumnName="Entry_Datetime" />
+          <ScalarProperty Name="Child_Restraints" ColumnName="Child_Restraints" />
+          <ScalarProperty Name="Trailer" ColumnName="Trailer" />
+          <ScalarProperty Name="Champagne" ColumnName="Champagne" />
+          <ScalarProperty Name="Id_Forword" ColumnName="Id_Forword" />
+          <ScalarProperty Name="Id_Related" ColumnName="Id_Related" />
+          <ScalarProperty Name="City_Id" ColumnName="City_Id" />
+          <ScalarProperty Name="Special_Request" ColumnName="Special_Request" />
+          <ScalarProperty Name="ContactName" ColumnName="ContactName" />
+          <ScalarProperty Name="UserName" ColumnName="UserName" />
+          <ScalarProperty Name="Phone" ColumnName="Phone" />
+          <ScalarProperty Name="Phone2" ColumnName="Phone2" />
+          <ScalarProperty Name="Paypal_txn_id" ColumnName="Paypal_txn_id" />
+          <ScalarProperty Name="Paypal_residence_country" ColumnName="Paypal_residence_country" />
+          <ScalarProperty Name="Direction" ColumnName="Direction" />
+          <ScalarProperty Name="Forword_Pickup_Time" ColumnName="Forword_Pickup_Time" />
+          <ScalarProperty Name="Forword_Pickup_Date" ColumnName="Forword_Pickup_Date" />
+          <ScalarProperty Name="Return_Pickup_Time" ColumnName="Return_Pickup_Time" />
+          <ScalarProperty Name="Return_Pickup_Date" ColumnName="Return_Pickup_Date" />
+          <ScalarProperty Name="Cost" ColumnName="Cost" />
+          <ScalarProperty Name="Email" ColumnName="Email" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Cities">
+      <EntityTypeMapping TypeName="Model.City">
+        <MappingFragment StoreEntitySet="City">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Locations">
+      <EntityTypeMapping TypeName="Model.Location">
+        <MappingFragment StoreEntitySet="Location">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="CityId" ColumnName="CityId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Prices">
+      <EntityTypeMapping TypeName="Model.Price">
+        <MappingFragment StoreEntitySet="Price">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Adult_Single_Ticket" ColumnName="Adult_Single_Ticket" />
+          <ScalarProperty Name="Adult_Return_Ticket" ColumnName="Adult_Return_Ticket" />
+          <ScalarProperty Name="Child_Single_Ticket" ColumnName="Child_Single_Ticket" />
+          <ScalarProperty Name="Child_Return_Ticket" ColumnName="Child_Return_Ticket" />
+          <ScalarProperty Name="City_Id" ColumnName="City_Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Ref_Generate">
+      <EntityTypeMapping TypeName="Model.Ref_Generate">
+        <MappingFragment StoreEntitySet="Ref_Generate">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Book_Id" ColumnName="Book_Id" />
+          <ScalarProperty Name="Entry_Datetime" ColumnName="Entry_Datetime" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ShuttleTimeTables">
+      <EntityTypeMapping TypeName="Model.ShuttleTimeTable">
+        <MappingFragment StoreEntitySet="ShuttleTimeTable">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Time" ColumnName="Time" />
+          <ScalarProperty Name="TimeTypeId" ColumnName="TimeTypeId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Suburbs">
+      <EntityTypeMapping TypeName="Model.Suburb">
+        <MappingFragment StoreEntitySet="Suburb">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="CityId" ColumnName="CityId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="TimeTypes">
+      <EntityTypeMapping TypeName="Model.TimeType">
+        <MappingFragment StoreEntitySet="TimeType">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="LocationId" ColumnName="LocationId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Vehicles">
+      <EntityTypeMapping TypeName="Model.Vehicle">
+        <MappingFragment StoreEntitySet="Vehicle">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>

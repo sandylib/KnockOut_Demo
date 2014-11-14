@@ -1,0 +1,127 @@
+﻿
+@{
+    ViewBag.Title = "ControlFlowBindings";
+}
+
+<h2>ControlFlowBindings</h2>
+
+<div id="foreach-binding">
+    <h3>Foreache</h3>
+        <ul data-bind="foreach:products">
+            <li>
+                Product at position:<span data-bind="text:$index"></span>
+                <span data-bind="text:name"></span>
+                <a href="#" data-bind="click:$parent.removeProduct">Remove</a>
+            </li>
+        </ul>
+
+    <button data-bind="click:addProduct">Add</button>
+</div>
+
+
+<div id="if-binding">
+    <h3>if</h3>
+    <ul data-bind="foreach:products">
+        <li>
+           Product: <b data-bind="text:name"></b>
+            <div data-bind="if:pricing">
+                Cost:<b data-bind="text:pricing.listPrice"></b>
+            </div>
+        </li>
+    </ul>
+
+
+</div>
+
+<div id="ifnot-binding">
+    <h3>ifnot</h3>
+    <ul data-bind="foreach:products">
+        <li>
+            Product: <b data-bind="text:name"></b>
+            <div data-bind="ifnot:pricing.listPrice <50">
+                Cost:<b data-bind="text:pricing.listPrice"></b>
+            </div>
+        </li>
+    </ul>
+
+
+</div>
+
+<div id="with-binding">
+    <h3>with</h3>
+   <h4 data-bind="text:city"></h4>
+    <p data-bind="with:restaurants">
+        Restaurant:<span data-bind="text:name"></span>,
+        Type:<span data-bind="text:rtype"></span>
+    </p>
+
+</div>
+
+@section scripts{
+    <script type="text/javascript">
+        function foreachViewModel() {
+            var self = this;
+
+            self.products = ko.observableArray([
+                { name: 'Coke' },
+                { name: 'Peps1' },
+                { name: '7-up' }
+            ]);
+            self.addProduct = function () {
+                self.products.push({ name: "New product"});
+            };
+            self.removeProduct = function () {
+                self.products.remove(this);
+            }
+        }
+
+        ko.applyBindings(new foreachViewModel(), $('#foreach-binding')[0]);
+    </script>
+
+<script type="text/javascript">
+    function ifViewModel() {
+        var self = this;
+
+        self.products = ko.observableArray([
+                { name: 'Coke', pricing: { listPrice: 100.00 } },
+                { name: 'Peps1', pricing: { listPrice: 35.00 } },
+                { name: '7-up', pricing:  null}
+
+        ]);
+    }
+
+    ko.applyBindings(new ifViewModel(), $('#if-binding')[0]);
+
+    </script>
+
+
+<script type="text/javascript">
+    function ifnotViewModel() {
+        var self = this;
+
+        self.products = ko.observableArray([
+                { name: 'Coke', pricing: { listPrice: 100.00 } },
+                { name: 'Peps1', pricing: { listPrice: 35.00 } },
+                { name: '7-up', pricing: { listPrice: 59.00 } }
+
+        ]);
+    }
+
+    ko.applyBindings(new ifnotViewModel(), $('#ifnot-binding')[0]);
+
+</script>
+
+<script type="text/javascript">
+    function withNewmodel() {
+        var self = this;
+
+        self.city = "sydney";
+        self.restaurants = { name: 'The Star', rtype: 'Australia Food' };
+    }
+
+    ko.applyBindings(new withNewmodel(), $('#with-binding')[0]);
+
+</script>
+
+    }
+
